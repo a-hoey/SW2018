@@ -26,3 +26,5 @@ In the streaming file you can change the #YOURPREFERENCE to any hashtag that you
 twitterStream = Stream(auth, listener())
 x = twitterStream.filter(track=["#YOURPREFERENCE"])
 ```
+### Project findings
+The IWD2018.pdf file sumarizes all the findings for #IWD2018 using the provided files.
