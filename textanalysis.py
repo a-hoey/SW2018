@@ -5,10 +5,8 @@ from collections import Counter
 from nltk.tokenize import TweetTokenizer, RegexpTokenizer
 from nltk.corpus import stopwords
 import csv
-from pprint import *
-from os import path
-from prettytable import PrettyTable
 from matplotlib import *
+import matplotlib.pyplot as plt
 
 file_name = 'twitdb'
 tweets_data_path = ''+file_name+'.csv'
@@ -24,7 +22,7 @@ if __name__ == '__main__':
     fname = sys.argv[0]
     tweet_tokenizer = RegexpTokenizer(r'\w+')
     punct = list(string.punctuation)
-    stopword_list = stopwords.words('english') + punct + ['rt', 'via', 'https','amp','re','...']
+    stopword_list = stopwords.words('english') + punct + ['rt', 'via', 'https','amp','re','co']
 
     tf = Counter()
     with open(fname, 'r') as f:
@@ -34,41 +32,16 @@ if __name__ == '__main__':
                 tokens = process(text=tweet['text'],
                                  tokenizer=tweet_tokenizer,
                                  stopwords=stopword_list)
+
                 tf.update(tokens)
-                most_common = tf.most_common(30)
-                # print tokens
+                print tf.most_common(30)
 
-                thefile = open('words.txt', 'w')
-                for i in tokens:
-                    print i
-                    thefile.write(i)
-
-                # plt.hist(most_common)
-                # plt.show
-                # for label, data in tf:
-                #     pt = PrettyTable(field_names=[label, 'Count'])
-                #     [pt.add_row(kv) for kv in most_common]
-                #     pt.align[label], pt.align['Count'] = 'l', 'r'  # Set column alignment
-                #     print pt
-
-                # wordcloud = WordCloud().generate(tf)
-                # print wordcloud
-                #
-                # plt.imshow(wordcloud, interpolation='bilinear')
-                # plt.axis("off")
-
-                # lower max_font_size
-                # wordcloud = WordCloud(max_font_size=40).generate(text)
-                # plt.figure()
-                # plt.imshow(wordcloud, interpolation="bilinear")
-                # plt.axis("off")
-                # plt.show()
-
-
-                # print tf.most_common(30)
                 # for tag, count in tf.most_common(20):
                 #     print("{}: {}".format(tag, count))
 
+                # plt.barh(range(len(most_common)), [val[1] for val in most_common], align='center')
+                # plt.yticks(range(len(most_common)), [val[0] for val in most_common])
+                # plt.show()
 
             except Exception, err:
                 if line != "\n":
